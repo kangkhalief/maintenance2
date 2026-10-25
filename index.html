@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sedang Maintenance - Studio Spectrum Pro</title>
+<style>
+  :root { --yellow:#f5b700; --brick:#c4572f; --steel:#8d99a6; --text:#f3efe6; --muted:#b3bdc7; }
+  * { box-sizing:border-box; }
+  html,body { height:100%; }
+  body {
+    margin:0; padding:20px; color:var(--text); text-align:center;
+    background:linear-gradient(#16222f,#27384a 70%,#3a4a5c);
+    font-family:"Trebuchet MS","Segoe UI",Verdana,sans-serif;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+  }
+  svg { width:100%; max-width:760px; height:auto; display:block; }
+  h1 { font-size:clamp(1.6rem,5vw,2.6rem); margin:10px 0 8px; }
+  p { margin:0 auto; max-width:470px; line-height:1.6; color:var(--muted); }
+  .bar { width:100%; max-width:760px; margin-top:22px; }
+  .meta { display:flex; justify-content:space-between; font-size:.9rem; color:var(--muted); margin-bottom:6px; }
+  .track { height:16px; background:#0e1721; border-radius:3px; overflow:hidden; border:2px solid #0e1721; }
+  .fill {
+    height:100%; width:0%; transition:width .2s linear;
+    background:repeating-linear-gradient(-45deg,var(--yellow) 0 14px,#1a1a1a 14px 28px);
+    background-size:40px 100%; animation:tape 1s linear infinite;
+  }
+  small { margin-top:14px; color:var(--muted); font-size:.85rem; }
+
+  /* sky */
+  .cloud1 { animation:drift 40s linear infinite; }
+  .cloud2 { animation:drift 55s linear infinite -20s; }
+  .cloud3 { animation:drift 70s linear infinite -45s; }
+  @keyframes drift { from { transform:translateX(-160px); } to { transform:translateX(760px); } }
+  .sun { transform-box:fill-box; transform-origin:center; animation:pulse 4s ease-in-out infinite; }
+  @keyframes pulse { 50% { transform:scale(1.12); opacity:.75; } }
+  .bird { animation:fly 16s linear infinite; }
+  .bird2 { animation:fly 16s linear infinite -6s; }
+  .wing { transform-box:fill-box; transform-origin:center; animation:flap .35s ease-in-out infinite alternate; }
+  @keyframes fly { from { transform:translate(-40px,0); } 50% { transform:translate(300px,-20px); } to { transform:translate(660px,6px); } }
+  @keyframes flap { from { transform:scaleY(1); } to { transform:scaleY(-.6); } }
+  .beacon { animation:blink 1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity:.15; } }
+
+  /* crane work cycle (8s) */
+  .trolley { animation:trolley 8s ease-in-out infinite; }
+  .sway { transform-origin:330px 64px; animation:sway 2.4s ease-in-out infinite; }
+  .cable { transform-box:fill-box; transform-origin:top; animation:cable 8s ease-in-out infinite; }
+  .load { animation:load 8s ease-in-out infinite; }
+  .brick { animation:vis 8s steps(1) infinite; }
+  @keyframes trolley { 0%,12%{transform:translateX(-80px)} 30%{transform:translateX(-80px)} 55%,78%{transform:translateX(85px)} 92%,100%{transform:translateX(-80px)} }
+  @keyframes cable { 0%,12%{transform:scaleY(1.86)} 30%,55%{transform:scaleY(.7)} 72%,78%{transform:scaleY(1.06)} 92%{transform:scaleY(.7)} 100%{transform:scaleY(1.86)} }
+  @keyframes load { 0%,12%{transform:translateY(86px)} 30%,55%{transform:translateY(-30px)} 72%,78%{transform:translateY(6px)} 92%{transform:translateY(-30px)} 100%{transform:translateY(86px)} }
+  @keyframes vis { 0%{opacity:1} 77%{opacity:0} 99%{opacity:0} 100%{opacity:1} }
+  @keyframes sway { 50% { transform:rotate(2.5deg); } 0%,100% { transform:rotate(-2.5deg); } }
+
+  /* wall: 5 bricks, one per crane delivery */
+  .row { opacity:0; }
+  .r0{animation:b0 40s infinite} .r1{animation:b1 40s infinite} .r2{animation:b2 40s infinite}
+  .r3{animation:b3 40s infinite} .r4{animation:b4 40s infinite}
+  @keyframes b0{0%,15.7%{opacity:0;transform:translateY(-12px)}17%,99%{opacity:1;transform:none}100%{opacity:0}}
+  @keyframes b1{0%,35.7%{opacity:0;transform:translateY(-12px)}37%,99%{opacity:1;transform:none}100%{opacity:0}}
+  @keyframes b2{0%,55.7%{opacity:0;transform:translateY(-12px)}57%,99%{opacity:1;transform:none}100%{opacity:0}}
+  @keyframes b3{0%,75.7%{opacity:0;transform:translateY(-12px)}77%,99%{opacity:1;transform:none}100%{opacity:0}}
+  @keyframes b4{0%,95.7%{opacity:0;transform:translateY(-12px)}97%,99%{opacity:1;transform:none}100%{opacity:0}}
+  .dust { opacity:0; transform-box:fill-box; transform-origin:center; animation:dust 8s infinite; }
+  @keyframes dust { 0%,77%{opacity:0;transform:scale(.4)} 80%{opacity:.7} 90%,100%{opacity:0;transform:scale(1.6) translateY(-8px)} }
+
+  /* workers */
+  .arm { transform-origin:516px 248px; animation:hammer .7s ease-in infinite; }
+  @keyframes hammer { 0%,100%{transform:rotate(65deg)} 50%{transform:rotate(-4deg)} }
+  .spark { opacity:0; animation:spark .7s infinite; }
+  @keyframes spark { 0%,45%{opacity:0;transform:translateX(0)} 52%{opacity:1} 100%{opacity:0;transform:translateX(-8px)} }
+  .walker { transform-box:fill-box; transform-origin:center; animation:walk 14s linear infinite; }
+  @keyframes walk {
+    0%{transform:translateX(0) scaleX(1)} 48%{transform:translateX(110px) scaleX(1)}
+    50%{transform:translateX(110px) scaleX(-1)} 98%{transform:translateX(0) scaleX(-1)} 100%{transform:translateX(0) scaleX(1)} }
+  .legA,.legB { transform-origin:top center; transform-box:fill-box; animation:step .5s ease-in-out infinite alternate; }
+  .legB { animation-direction:alternate-reverse; }
+  @keyframes step { from{transform:rotate(-28deg)} to{transform:rotate(28deg)} }
+  .bob { animation:bob .5s ease-in-out infinite alternate; }
+  @keyframes bob { to { transform:translateY(-1.5px); } }
+  .gear { transform-box:fill-box; transform-origin:center; animation:spin 6s linear infinite; }
+  .gear2 { animation-duration:4s; animation-direction:reverse; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .cone { transform-box:fill-box; transform-origin:bottom; animation:wob 3s ease-in-out infinite; }
+  @keyframes wob { 50% { transform:rotate(3deg); } }
+  @keyframes tape { to { background-position:40px 0; } }
+
+  @media (prefers-reduced-motion:reduce) { * { animation:none !important; transition:none !important; } .row { opacity:1; } }
+</style>
+</head>
+<body>
+
+<svg viewBox="0 0 600 340" role="img" aria-label="Animasi pekerja konstruksi memperbaiki website">
+  <!-- sky -->
+  <circle class="sun" cx="95" cy="205" r="34" fill="#f5b700" opacity=".9"/>
+  <g fill="#fff" opacity=".13">
+    <g class="cloud1"><ellipse cx="0" cy="60" rx="38" ry="12"/><ellipse cx="22" cy="52" rx="24" ry="12"/></g>
+    <g class="cloud2"><ellipse cx="0" cy="110" rx="46" ry="13"/><ellipse cx="-20" cy="102" rx="26" ry="12"/></g>
+    <g class="cloud3"><ellipse cx="0" cy="30" rx="30" ry="9"/><ellipse cx="14" cy="24" rx="18" ry="9"/></g>
+  </g>
+  <g stroke="#cfd8e2" stroke-width="2" fill="none" stroke-linecap="round">
+    <g class="bird" style="transform-origin:0 0"><g transform="translate(0,90)"><path class="wing" d="M-7 0 Q-3 -6 0 0 Q3 -6 7 0"/></g></g>
+    <g class="bird2"><g transform="translate(0,130)"><path class="wing" d="M-6 0 Q-3 -5 0 0 Q3 -5 6 0"/></g></g>
+  </g>
+  <!-- skyline -->
+  <g fill="#1d2b3a">
+    <rect x="0" y="240" width="40" height="50"/><rect x="48" y="225" width="30" height="65"/>
+    <rect x="86" y="250" width="46" height="40"/><rect x="540" y="235" width="34" height="55"/>
+    <rect x="574" y="255" width="26" height="35"/>
+  </g>
+  <!-- ground -->
+  <rect x="0" y="290" width="600" height="50" fill="#23282f"/>
+  <rect x="0" y="290" width="600" height="4" fill="#3b424b"/>
+
+  <!-- crane tower -->
+  <g stroke="var(--yellow)" stroke-width="3" fill="none">
+    <path d="M190 290 V60 M214 290 V60"/>
+    <path d="M190 290 L214 260 L190 230 L214 200 L190 170 L214 140 L190 110 L214 80 L190 60"/>
+    <path d="M214 290 L190 260 L214 230 L190 200 L214 170 L190 140 L214 110 L190 80 L214 60"/>
+  </g>
+  <path d="M120 60 H440 V50 H120 Z" fill="var(--yellow)"/>
+  <path d="M202 28 L120 60 M202 28 L440 50 M202 28 V60" stroke="var(--yellow)" stroke-width="2" fill="none"/>
+  <rect x="120" y="60" width="36" height="26" fill="var(--steel)"/>
+  <rect x="190" y="44" width="24" height="16" fill="#e8590c"/>
+  <circle class="beacon" cx="202" cy="24" r="4" fill="#ff3b30"/>
+
+  <!-- brick pile -->
+  <g fill="var(--brick)" stroke="#8a3a1c" stroke-width="1.5">
+    <rect x="228" y="278" width="40" height="12"/><rect x="232" y="266" width="32" height="12"/><rect x="238" y="254" width="22" height="12"/>
+  </g>
+
+  <!-- trolley + cable + load -->
+  <g class="trolley">
+    <rect x="322" y="60" width="16" height="9" fill="#333"/>
+    <g class="sway">
+      <line class="cable" x1="330" y1="68" x2="330" y2="164" stroke="#ddd" stroke-width="2"/>
+      <g class="load">
+        <path d="M322 164 h16 l-8 -10 z" fill="#ddd"/>
+        <g class="brick">
+          <rect x="310" y="164" width="40" height="20" fill="var(--brick)" stroke="#8a3a1c" stroke-width="2"/>
+          <path d="M330 164V184" stroke="#8a3a1c" stroke-width="2"/>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- building -->
+  <g stroke="var(--steel)" stroke-width="3">
+    <path d="M350 290 V160 M480 290 V160 M350 160 H480 M350 225 H480"/>
+  </g>
+  <g>
+    <g class="row r0"><rect x="352" y="270" width="126" height="20" fill="var(--brick)"/><path d="M380 270v20M415 270v20M450 270v20" stroke="#8a3a1c" stroke-width="2"/></g>
+    <g class="row r1"><rect x="352" y="250" width="126" height="20" fill="#b34c27"/><path d="M365 250v20M398 250v20M432 250v20M465 250v20" stroke="#8a3a1c" stroke-width="2"/></g>
+    <g class="row r2"><rect x="352" y="230" width="126" height="20" fill="var(--brick)"/><path d="M380 230v20M415 230v20M450 230v20" stroke="#8a3a1c" stroke-width="2"/></g>
+    <g class="row r3"><rect x="352" y="210" width="126" height="20" fill="#b34c27"/><path d="M365 210v20M398 210v20M432 210v20M465 210v20" stroke="#8a3a1c" stroke-width="2"/></g>
+    <g class="row r4"><rect x="352" y="190" width="126" height="20" fill="var(--brick)"/><path d="M380 190v20M415 190v20M450 190v20" stroke="#8a3a1c" stroke-width="2"/></g>
+  </g>
+  <g class="dust" fill="#cdbfae"><circle cx="400" cy="186" r="8"/><circle cx="420" cy="182" r="6"/><circle cx="436" cy="187" r="7"/></g>
+
+  <!-- hammering worker -->
+  <g>
+    <rect x="514" y="246" width="16" height="30" rx="3" fill="#e8590c"/>
+    <rect x="515" y="276" width="6" height="14" fill="#2f3b52"/><rect x="524" y="276" width="6" height="14" fill="#2f3b52"/>
+    <circle cx="522" cy="236" r="8" fill="#e6b98f"/>
+    <path d="M513 235 a9 9 0 0 1 18 0 z" fill="var(--yellow)"/><rect x="511" y="234" width="22" height="3" fill="var(--yellow)"/>
+    <g class="arm">
+      <rect x="488" y="246" width="28" height="5" rx="2" fill="#e8590c"/>
+      <rect x="484" y="232" width="5" height="28" fill="#6b4a2b"/>
+      <rect x="480" y="230" width="14" height="8" fill="#444"/>
+    </g>
+  </g>
+  <g class="spark" stroke="var(--yellow)" stroke-width="2"><path d="M476 246 l-8 -6 M474 252 l-10 0 M476 258 l-8 6"/></g>
+
+  <!-- walking worker with plank -->
+  <g class="walker">
+    <g class="bob">
+      <rect x="150" y="256" width="14" height="22" rx="3" fill="#2d9cdb"/>
+      <circle cx="157" cy="248" r="7" fill="#e6b98f"/>
+      <path d="M149 247 a8 8 0 0 1 16 0 z" fill="var(--yellow)"/><rect x="147" y="246" width="20" height="3" fill="var(--yellow)"/>
+      <rect x="140" y="262" width="40" height="5" fill="#b08968"/>
+    </g>
+    <rect class="legA" x="151" y="276" width="5" height="14" fill="#2f3b52"/>
+    <rect class="legB" x="158" y="276" width="5" height="14" fill="#2f3b52"/>
+  </g>
+
+  <!-- sign, cones -->
+  <g>
+    <rect x="50" y="248" width="5" height="42" fill="#666"/>
+    <path d="M52.5 200 L88 248 H17 Z" fill="var(--yellow)" stroke="#1a1a1a" stroke-width="3" stroke-linejoin="round"/>
+    <rect x="50" y="218" width="5" height="16" fill="#1a1a1a"/><circle cx="52.5" cy="240" r="3" fill="#1a1a1a"/>
+    <g class="cone"><path d="M290 290 l10 -28 l10 28 z" fill="#e8590c"/><rect x="293" y="276" width="14" height="5" fill="#fff"/></g>
+    <g class="cone" style="animation-delay:-1s"><path d="M105 290 l10 -28 l10 28 z" fill="#e8590c"/><rect x="108" y="276" width="14" height="5" fill="#fff"/></g>
+  </g>
+
+  <!-- gears -->
+  <g class="gear" fill="none" stroke="var(--steel)" stroke-width="5" opacity=".85">
+    <circle cx="552" cy="70" r="14"/>
+    <path d="M552 46v10M552 84v10M528 70h10M566 70h10M535 53l7 7M562 80l7 7M569 53l-7 7M542 80l-7 7"/>
+  </g>
+  <g class="gear gear2" fill="none" stroke="#6c7886" stroke-width="4" opacity=".85">
+    <circle cx="522" cy="104" r="9"/>
+    <path d="M522 88v6M522 114v6M506 104h6M532 104h6M511 93l4 4M529 111l4 4M533 93l-4 4M515 111l-4 4"/>
+  </g>
+</svg>
+
+<h1>Sedang dalam perbaikan</h1>
+<p>Website Studio Spectrum Pro sedang kami bangun dan rapikan. Kami akan segera kembali. Terima kasih sudah menunggu.</p>
+
+<div class="bar" aria-live="polite">
+  <div class="meta"><span id="msg">Menyiapkan lahan...</span><span id="pct">0%</span></div>
+  <div class="track"><div class="fill" id="fill"></div></div>
+</div>
+<small>studiospectrumpro.com</small>
+
+<script>
+(function () {
+  var msgs = ["Menyiapkan lahan...", "Mengangkut material...", "Menyusun bata satu per satu...", "Memasang rangka...", "Merapikan tampilan...", "Hampir selesai..."];
+  var p = 0, fill = document.getElementById("fill"), pct = document.getElementById("pct"), msg = document.getElementById("msg");
+  setInterval(function () {
+    p = p >= 100 ? 0 : p + 1;
+    fill.style.width = p + "%";
+    pct.textContent = p + "%";
+    msg.textContent = msgs[Math.min(msgs.length - 1, Math.floor(p / (100 / msgs.length)))];
+  }, 300);
+})();
+</script>
+</body>
+</html>
